@@ -1,13 +1,13 @@
-<!-- <div style="margin-left:20px">
-    <form class="form-inline">
+<div style="margin-left:20px">
+    <!-- <form class="form-inline">
         <label for="searchBox" class="sr-only">Search</label>
         <input id="searchBox" type="text" class="form-control" placeholder="Keyword">
         <button class="btn btn-default">Search</button>
     </form>
-    <br />
+    <br /> -->
     <table id="jqGrid"></table>
     <div id="jqGridPager"></div>
-</div> -->
+</div>
 <script type="text/javascript"> 
 $(document).ready( function () 
 {
@@ -68,7 +68,7 @@ $(document).ready( function ()
             multipleGroup: true, 
             showQuery: true,
             // set the names of the template
-            tmplNames: ["Template One", "Template Two"],
+            // tmplNames: ["Template One", "Template Two"],
             // set the template contents
             // tmplFilters: [template1, template2],
         }, // search options - define multiple search);
