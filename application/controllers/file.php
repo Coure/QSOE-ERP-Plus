@@ -34,8 +34,9 @@ class File extends CI_Controller
                 $error = 'Upload successfully.';
             }
         }
-
-        $this->load->view('upload', array('error' => $error));
+        $this->load->view('header', ['title' => 'File Upload']);
+        $this->load->view('upload', ['error' => $error]);
+        $this->load->view('footer');
     }
 }
 ?>
