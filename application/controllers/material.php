@@ -23,5 +23,9 @@ class Material extends CI_Controller
     {
         echo json_encode($this->Material_model->get_array());
     }
+    public function import()
+    {
+        echo $this->Material_model->import(VIEWPATH.'uploads/Singamas_INV_物料定义及库存量报表.xlsx');
+    }
 }
 ?>
