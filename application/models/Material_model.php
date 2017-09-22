@@ -17,7 +17,7 @@ class Material_model extends CI_Model
         $this->load->database();
     }
 
-    public function get_array($fields = 'id, Code, Name, UOM, MSQ, LastUpdate')
+    public function get_array($fields = 'Code, Name, UOM, MSQ, LastUpdate')
     {
         $this->db->select($fields);
         return $this->db->get($this->dbTable)->result_array();
@@ -49,7 +49,7 @@ class Material_model extends CI_Model
             $this->name = $data['D'];
             $this->uom = $data['F'];
             $this->msq = $data['M'];
-            $this->lastUpdate = date("Y-m-d H:i:s", strtotime($data['J']));
+            $this->lastUpdate = strtotime($data['J']);
             
             $this->db->where('Code', $this->code);
             $this->db->update($this->dbTable, $this);

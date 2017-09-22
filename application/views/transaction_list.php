@@ -11,31 +11,35 @@
 <script type="text/javascript"> 
 $(document).ready( function () 
 {
-    $.jgrid.defaults.width = 1000;
+    $.jgrid.defaults.width = 1200;
     $("#jqGrid").jqGrid({
-        url: '<?=site_url('material/list_json');?>',
+        url: '<?=site_url('transaction/list_json');?>',
         mtype: "GET",
         styleUI : 'Bootstrap',
         datatype: "json",
         colModel: [
-            { label: 'Code', name: 'Code', width: 100 },
-            {
-                label: 'Name',
-                name: 'Name',
-                width: 400,
-                searchoptions: { sopt: ['cn'] },
-            },
-            { label: 'UOM', name: 'UOM', width: 50 },
-            { label: 'MSQ', name: 'MSQ', width: 50, align: 'right' },
-            { label: 'Update', name: 'LastUpdate', width: 100, formatter:
+            { label: '日期', name: 'TrnxDate', width: 75, formatter:
                 function(cellvalue, options, row){return new Date(cellvalue*1000).toLocaleDateString()}
             },
+            { label: '类型', name: 'TrnxSrc', width: 100 },
+            { label: '来源', name: 'Source', width: 100 },
+            { label: '料号', name: 'MaterialCode', width: 100 },
+            {
+                label: '物料描述',
+                name: 'Name',
+                width: 300,
+                searchoptions: { sopt: ['cn'] },
+            },
+            { label: '数量', name: 'Qty', width: 50, align: 'right' },
+            { label: '仓库', name: 'Subinv', width: 50 },
+            { label: '货位', name: 'Locate', width: 50 },
+            { label: '拥有方', name: 'Owner', width: 50 },
         ],
         viewrecords: true,
         height: 500,
         rowNum: 30,
         rowList: [20,30,50],
-        sortname: 'Code',
+        sortname: 'TrnxDate',
         sortorder: "asc",
         pager: "#jqGridPager",
         loadonce: true,
