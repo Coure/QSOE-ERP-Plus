@@ -25,7 +25,12 @@ class Transaction extends CI_Controller
     }
     public function import()
     {
-        echo $this->Transaction_model->import(VIEWPATH.'uploads/Singamas_INV_物料出入库明细报表.xlsx');
+        echo $this->Transaction_model->import(VIEWPATH.'uploads/Singamas_INV_物料出入库明细报表.csv');
+    }
+    public function test()
+    {
+        $this->load->helper('array');
+        var_dump(csv_to_array(VIEWPATH.'uploads/Singamas_INV_物料出入库明细报表.csv'));
     }
 }
 ?>

@@ -22,4 +22,24 @@ function table_to_dict($dataTable, $headers = NULL)
     }
     return $dataTable;
 }
+
+function csv_to_array( $filename, $delimiter=',' )
+{
+    // read the CSV lines into a numerically indexed array
+    $all_lines = @file( $filename );
+    if( !$all_lines ) {
+        return FALSE;
+    }
+    $csv = array_map( function( &$line ) use ( $delimiter ) {
+        return str_getcsv( $line, $delimiter );
+    }, $all_lines );
+
+    // use the first row's values as keys for all other rows
+    array_walk( $csv, function( &$a ) use ( $csv ) {
+        $a = array_combine( $csv[0], $a );
+    });
+    array_shift( $csv ); // remove column header row
+
+    return $csv;
+}
 ?>

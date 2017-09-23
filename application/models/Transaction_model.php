@@ -37,15 +37,8 @@ class Transaction_model extends CI_Model
 
     public function import($dataFile)
     {
-        // Load PHPExcel
-        $this->load->library('My_PHPExcel');
-
-        // The 1st row of excel should be data.
-        $excelObj = My_PHPExcel::load($dataFile);
-        $sheetData = $excelObj->getSheet(0)->toArray(null, true, true, true);
-
-        // Remove header.
-        unset($sheetData[1]);
+        $this->load->helper('array');
+        $sheetData = csv_to_array($dataFile);
 
         $this->db->trans_strict(FALSE);
         $this->db->trans_start();
@@ -54,7 +47,7 @@ class Transaction_model extends CI_Model
         $updateRows = 0;
 
         // Remove records in the same date range to avoid duplication.
-        $lastUpdates = array_column($sheetData, 'AH');
+        $lastUpdates = array_column($sheetData, '创建日期');
         foreach ($lastUpdates as &$data)
         {
             $data = strtotime($data);
@@ -71,19 +64,19 @@ class Transaction_model extends CI_Model
         foreach ($sheetData as $data)
         {
             // Update if exist
-            $this->trnxSrc = $data['A'];
-            $this->materialCode = $data['D'];
-            $this->trnxDate = strtotime($data['H']);
-            $this->trnxType = $data['I'];
-            $this->subinv = $data['J'];
-            $this->locate = $data['K'];
-            $this->lot = $data['L'];
-            $this->owner = $data['M'];
-            $this->voucher = $data['N'];
-            $this->source = $data['O'];
-            $this->qty = $data['Z'];
-            $this->value = $data['Y'];
-            $this->lastUpdate = strtotime($data['AH']);
+            $this->trnxSrc = $data['事务来源'];
+            $this->materialCode = $data['物料编码'];
+            $this->trnxDate = strtotime($data['事务日期']);
+            $this->trnxType = $data['事务类型'];
+            $this->subinv = $data['仓库代码'];
+            $this->locate = $data['货位'];
+            $this->lot = $data['批次'];
+            $this->owner = $data['拥有方'];
+            $this->voucher = $data['单据号'];
+            $this->source = $data['来源'];
+            $this->qty = $data['主要数量'];
+            $this->value = $data['主要金额'];
+            $this->lastUpdate = strtotime($data['创建日期']);
             // var_dump($this);
             
             $this->db->insert($this->dbTable, $this);
